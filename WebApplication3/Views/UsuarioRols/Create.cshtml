@@ -1,0 +1,101 @@
+﻿@model WebApplication3.Models.UsuarioRol
+@{
+    ViewData["Title"] = "Asignar Rol";
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center mb-0">@ViewData["Title"]</h2>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="IdUsuario" class="form-label">Usuario</label>
+                            <select asp-for="IdUsuario" class="form-select" asp-items="ViewBag.IdUsuario">
+                                <option value="">Seleccione un usuario</option>
+                            </select>
+                            <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="IdRol" class="form-label">Rol</label>
+                            <select asp-for="IdRol" class="form-select" asp-items="ViewBag.IdRol">
+                                <option value="">Seleccione un rol</option>
+                            </select>
+                            <span asp-validation-for="IdRol" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> Volver a la lista
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .card-header {
+        background-color: #e7d6b4;
+        color: #6b4e3a;
+        border-bottom: none;
+        padding: 1rem;
+    }
+
+    .form-label {
+        color: #6b4e3a;
+        font-weight: 500;
+    }
+
+    .form-select:focus {
+        border-color: #d5c7a0;
+        box-shadow: 0 0 0 0.25rem rgba(213, 199, 160, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #d5c7a0;
+        border-color: #b8a98e;
+        color: #6b4e3a;
+    }
+
+        .btn-primary:hover {
+            background-color: #b8a98e;
+            border-color: #a69070;
+            color: #3b2a1c;
+        }
+
+    .btn-outline-secondary {
+        color: #6b4e3a;
+        border-color: #d5c7a0;
+    }
+
+        .btn-outline-secondary:hover {
+            background-color: #f5f5dc;
+            color: #3b2a1c;
+            border-color: #b8a98e;
+        }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,277 @@
+﻿@model WebApplication3.Models.Producto
+@{
+    ViewData["Title"] = "Editar Producto";
+}
+
+<style>
+    :root {
+        --beige-light: #f5f5dc;
+        --beige-medium: #e8e4d9;
+        --beige-dark: #d4cdb4;
+        --brown-accent: #8b7355;
+        --brown-light: #a68b6c;
+        --text-color: #463e3f;
+    }
+
+    .auction-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    .auction-header {
+        text-align: center;
+        border-bottom: 2px solid var(--beige-dark);
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        color: var(--brown-accent);
+    }
+
+    .auction-form {
+        background-color: var(--beige-light);
+        padding: 2rem;
+        border-radius: 8px;
+    }
+
+    .image-preview {
+        max-width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin: 10px 0;
+    }
+
+    .current-image {
+        max-width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin: 10px 0;
+        border: 3px solid var(--beige-dark);
+    }
+
+    .btn-auction {
+        background-color: var(--brown-accent);
+        color: white;
+        padding: 0.5rem 1.2rem;
+        border: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-auction:hover {
+        background-color: var(--brown-light);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .form-control:focus {
+        border-color: var(--brown-accent);
+        box-shadow: 0 0 0 0.2rem rgba(139, 115, 85, 0.25);
+    }
+
+    .image-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .image-item {
+        position: relative;
+        padding: 5px;
+        background: white;
+        border-radius: 8px;
+    }
+
+    .image-item img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .delete-checkbox {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 10;
+    }
+</style>
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-edit"></i> Editar Producto</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Edit" enctype="multipart/form-data" class="auction-form">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <input type="hidden" asp-for="ProductoId" />
+                <input type="hidden" asp-for="ImagenPrincipalUrl" />
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Nombre" class="control-label">
+                                <i class="fas fa-tag"></i> Nombre
+                            </label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Precio" class="control-label">
+                                <i class="fas fa-dollar-sign"></i> Precio
+                            </label>
+                            <input asp-for="Precio" class="form-control" type="number" step="0.01" />
+                            <span asp-validation-for="Precio" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Descripcion" class="control-label">
+                        <i class="fas fa-align-left"></i> Descripción
+                    </label>
+                    <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CategoriaProductoId" class="control-label">
+                                <i class="fas fa-folder"></i> Categoría
+                            </label>
+                            <select asp-for="CategoriaProductoId" class="form-select" asp-items="ViewBag.CategoriaProductoId"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="SubastaId" class="control-label">
+                                <i class="fas fa-gavel"></i> Subasta
+                            </label>
+                            <select asp-for="SubastaId" class="form-select" asp-items="ViewBag.SubastaId"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">
+                        <i class="fas fa-image"></i> Imagen Principal Actual
+                    </label>
+                    @if (!string.IsNullOrEmpty(Model.ImagenPrincipalUrl))
+                    {
+                        <img src="@Url.Content(Model.ImagenPrincipalUrl)" class="current-image d-block" alt="Imagen actual" />
+                    }
+                    <label class="mt-2">
+                        <i class="fas fa-upload"></i> Cambiar Imagen Principal
+                    </label>
+                    <input type="file" name="nuevaImagenPrincipal" class="form-control" accept="image/*" 
+                           onchange="previewImage(this, 'mainImagePreview')" />
+                    <div id="mainImagePreview"></div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">
+                        <i class="fas fa-images"></i> Imágenes Adicionales
+                    </label>
+                    <!-- Imágenes existentes -->
+                    <div class="image-gallery mb-3">
+                        @if (Model.ImagenesProductos != null)
+                        {
+                            foreach (var imagen in Model.ImagenesProductos)
+                            {
+                                <div class="image-item">
+                                    <div class="form-check delete-checkbox">
+                                        <input type="checkbox" class="form-check-input"
+                                               name="imagenesAEliminar" value="@imagen.ImagenProductoId"
+                                               id="img_@imagen.ImagenProductoId" />
+                                        <label class="form-check-label" for="img_@imagen.ImagenProductoId">
+                                            Eliminar
+                                        </label>
+                                    </div>
+                                    <img src="@Url.Content(imagen.ImagenUrl)" alt="Imagen adicional" />
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <!-- Agregar nuevas imágenes -->
+                    <label class="mt-2">
+                        <i class="fas fa-upload"></i> Agregar Más Imágenes
+                    </label>
+                    <input type="file" name="imagenesAdicionales" multiple class="form-control"
+                           accept="image/*" onchange="previewMultipleImages(this)" />
+                    <div id="additionalImagesPreview" class="image-gallery"></div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-auction me-2">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Volver al Listado
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.innerHTML = `<img src="${e.target.result}" class="image-preview" alt="Vista previa">`;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function previewMultipleImages(input) {
+            const preview = document.getElementById('additionalImagesPreview');
+            preview.innerHTML = '';
+            if (input.files) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const div = document.createElement('div');
+                        div.className = 'image-item';
+                        div.innerHTML = `
+                                    <img src="${e.target.result}" alt="Vista previa">
+                                    <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
+                                            onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                `;
+                        preview.appendChild(div);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        // Agregar confirmación antes de eliminar imágenes
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const checkboxes = document.querySelectorAll('input[name="imagenesAEliminar"]:checked');
+            if (checkboxes.length > 0) {
+                if (!confirm('¿Está seguro de que desea eliminar las imágenes seleccionadas?')) {
+                    e.preventDefault();
+                }
+            }
+        });
+    </script>
+}

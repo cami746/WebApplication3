@@ -1,0 +1,31 @@
+﻿<!-- Details.cshtml -->
+@model WebApplication3.Models.TipoDeSubastum
+@{
+    ViewData["Title"] = "Detalles del Tipo de Subasta";
+}
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-info-circle"></i> Detalles del Tipo de Subasta</h1>
+    </div>
+
+    <div class="auction-form">
+        <dl class="row">
+            <dt class="col-sm-3">
+                <i class="fas fa-tag"></i> @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+        </dl>
+
+        <div class="text-center mt-4">
+            <a asp-action="Edit" asp-route-id="@Model?.TipoDeSubastaId" class="btn btn-auction me-2">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a asp-action="Index" class="auction-link">
+                <i class="fas fa-arrow-left"></i> Volver al Listado
+            </a>
+        </div>
+    </div>
+</div>

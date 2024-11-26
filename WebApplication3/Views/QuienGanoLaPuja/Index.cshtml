@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WebApplication3.Models.Ganador>
+
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+    }
+
+   
+    h2 {
+        color: #8c7853;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #f8f8f8;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #8c7853;
+        color: #fff;
+    }
+
+    td {
+        color: #4a4a4a;
+    }
+</style>
+
+<div class="container">
+    <h2>Ganadores de la Puja</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID de Subasta</th>
+                <th>Nombre del Usuario</th>
+                <th>Monto Total</th>
+                <th>Última Fecha de Puja</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ganador in Model)
+            {
+                <tr>
+                    <td>@ganador.SubastaTitulo</td>
+                    <td>@ganador.UsuarioNombre</td>
+                    <td>@ganador.MontoTotal</td>
+                    <td>@ganador.UltimaFechaPuja</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

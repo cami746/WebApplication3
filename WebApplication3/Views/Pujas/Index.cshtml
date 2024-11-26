@@ -1,0 +1,95 @@
+﻿@model IEnumerable<WebApplication3.Models.Puja>
+@{
+    ViewData["Title"] = "Registro de Pujas";
+}
+
+<div class="container">
+    <div class="row mb-4 align-items-center">
+        <div class="col">
+            <h1><i class="fas fa-gavel"></i> Historial de Pujas</h1>
+        </div>
+        <div class="col text-end">
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Nueva Puja
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th><i class="fas fa-dollar-sign"></i> Monto</th>
+                            <th><i class="far fa-clock"></i> Fecha y Hora</th>
+                            <th><i class="fas fa-user"></i> Usuario</th>
+                            <th><i class="fas fa-box"></i> Subasta</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-primary fw-bold">
+                                    @item.Monto.ToString("C")
+                                </td>
+                                <td>
+                                    @item.FechaPuja.ToString("dd/MM/yyyy HH:mm:ss")
+                                </td>
+                                <td>
+                                    @item.Inscripcion.Usuario.Nombre @item.Inscripcion.Usuario.Apellido
+                                </td>
+                                <td>
+                                    @item.Inscripcion.Subasta.Titulo
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Edit" asp-route-id="@item.PujaId"
+                                           class="btn btn-outline-primary btn-sm" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.PujaId"
+                                           class="btn btn-outline-info btn-sm" title="Detalles">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.PujaId"
+                                           class="btn btn-outline-danger btn-sm" title="Eliminar">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+
+    .table th {
+        background-color: #e7d6b4;
+        color: #6b4e3a;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f5f5dc;
+    }
+
+    .btn-group {
+        gap: 5px;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+    }
+</style>

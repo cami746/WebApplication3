@@ -1,0 +1,90 @@
+﻿@* Delete.cshtml *@
+@model WebApplication3.Controllers.InscripcionsController.InscripcionViewModel
+@{
+    ViewData["Title"] = "Eliminar Inscripción";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación</h3>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <i class="fas fa-question-circle me-2"></i>
+                ¿Está seguro que desea eliminar esta inscripción?
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <h5 class="text-muted"><i class="far fa-calendar-alt me-2"></i>Fecha de Inscripción</h5>
+                        <p class="lead">@Model.FechaInscripcion.ToString("dd/MM/yyyy HH:mm")</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <h5 class="text-muted"><i class="fas fa-gavel me-2"></i>Subasta</h5>
+                        <p class="lead">@Model.TituloSubasta</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <h5 class="text-muted"><i class="fas fa-user me-2"></i>Participante</h5>
+                        <p class="lead">@Model.NombreUsuario</p>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-action="Delete" class="mt-4">
+                <input type="hidden" asp-for="InscripcionId" />
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Volver
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>Eliminar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            // Inicializar Select2 para mejorar los dropdowns
+            $('.form-select').select2({
+                theme: 'bootstrap4',
+                width: '100%'
+            });
+
+            // Animación suave al mostrar el contenido
+            $('.card').hide().fadeIn(500);
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .card {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        .lead {
+            font-size: 1.1rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+        }
+    </style>
+}

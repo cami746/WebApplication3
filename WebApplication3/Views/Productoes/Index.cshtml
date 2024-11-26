@@ -1,0 +1,199 @@
+﻿<!-- Index.cshtml -->
+@model IEnumerable<WebApplication3.Models.Producto>
+@{
+    ViewData["Title"] = "Productos en Subasta";
+}
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-gavel"></i> Productos en Subasta</h1>
+    </div>
+
+    <!-- Sección de búsqueda y filtros -->
+    <div class="search-section">
+        <form method="get" class="row g-3">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" name="searchString" class="form-control"
+                           placeholder="Buscar productos..." value="@ViewBag.CurrentFilter">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select name="categoriaId" class="form-select" asp-items="ViewBag.Categorias">
+                    <option value="">Todas las categorías</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-auction w-100">
+                    <i class="fas fa-filter"></i> Filtrar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mb-3">
+        <a asp-action="Create" class="btn btn-auction">
+            <i class="fas fa-plus"></i> Nuevo Producto
+        </a>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="product-card">
+                    <div class="position-relative">
+                        @if (!string.IsNullOrEmpty(item.ImagenPrincipalUrl))
+                        {
+                            <img src="@Url.Content(item.ImagenPrincipalUrl)" class="product-image" alt="@item.Nombre">
+                        }
+                        else
+                        {
+                            <img src="~/images/no-image.png" class="product-image" alt="Sin imagen">
+                        }
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Nombre</h5>
+                        <p class="card-text">@item.Descripcion</p>
+                        <p class="product-price">$@item.Precio.ToString("N2")</p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                Categoría: @item.CategoriaProducto.Nombre
+                            </small>
+                        </p>
+                        <div class="btn-group w-100">
+                            <a asp-action="Edit" asp-route-id="@item.ProductoId"
+                               class="btn btn-auction btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.ProductoId"
+                               class="btn btn-auction btn-sm">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.ProductoId"
+                               class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- Estilos compartidos -->
+<style>
+    :root {
+        --beige-light: #f5f5dc;
+        --beige-medium: #e8e4d9;
+        --beige-dark: #d4cdb4;
+        --brown-accent: #8b7355;
+        --brown-light: #a68b6c;
+        --text-color: #463e3f;
+    }
+
+    body {
+        background-color: var(--beige-light);
+        color: var(--text-color);
+    }
+
+    .auction-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    .auction-header {
+        text-align: center;
+        border-bottom: 2px solid var(--beige-dark);
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+        .auction-header h1 {
+            color: var(--brown-accent);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+    .product-card {
+        background: white;
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+    .product-image {
+        height: 250px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .product-price {
+        color: var(--brown-accent);
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .btn-auction {
+        background-color: var(--brown-accent);
+        color: white;
+        padding: 0.5rem 1.2rem;
+        border: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-auction:hover {
+            background-color: var(--brown-light);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .search-section {
+        background-color: var(--beige-medium);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+
+    .image-preview {
+        max-width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin: 10px 0;
+    }
+
+    .image-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .image-item {
+        position: relative;
+        padding: 5px;
+        background: white;
+        border-radius: 8px;
+    }
+
+        .image-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+</style>

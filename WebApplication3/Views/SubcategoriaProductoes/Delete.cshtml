@@ -1,0 +1,112 @@
+﻿@model WebApplication3.Models.SubcategoriaProducto
+@{
+    ViewData["Title"] = "Eliminar Subcategoría";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="text-center mb-0">
+                        <i class="fas fa-exclamation-triangle"></i> Confirmar Eliminación
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                        ¿Está seguro que desea eliminar esta subcategoría? Esta acción no se puede deshacer.
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="image-container mb-3">
+                                @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                                {
+                                    <img src="@Url.Content(Model.ImagenUrl)" class="img-fluid rounded" alt="@Model.Nombre">
+                                }
+                                else
+                                {
+                                    <img src="~/images/no-image.png" class="img-fluid rounded" alt="Sin imagen">
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="info-group">
+                                <label><i class="fas fa-tag"></i> Nombre:</label>
+                                <h4>@Model.Nombre</h4>
+                            </div>
+
+                            <div class="info-group">
+                                <label><i class="fas fa-folder"></i> Categoría:</label>
+                                <h5>@Model.CategoriaProducto.Nombre</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" class="mt-4">
+                        <input type="hidden" asp-for="SubcategoriaProductoId" />
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Confirmar Eliminación
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> Volver a la lista
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .card-header {
+        padding: 1rem;
+    }
+
+    .image-container {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .info-group {
+        margin-bottom: 1.5rem;
+    }
+
+        .info-group label {
+            color: #6b4e3a;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-group h4, .info-group h5 {
+            color: #333;
+            margin: 0;
+        }
+
+    .alert {
+        border-radius: 8px;
+        font-size: 1.1em;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+</style>

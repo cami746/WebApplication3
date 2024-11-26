@@ -1,0 +1,145 @@
+﻿@model WebApplication3.Models.Puja
+@{
+    ViewData["Title"] = "Editar Puja";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title text-center mb-0">
+                        <i class="fas fa-gavel"></i> Editar Puja
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                        <input type="hidden" asp-for="PujaId" />
+
+                        <div class="mb-3">
+                            <label asp-for="InscripcionId" class="form-label">
+                                <i class="fas fa-box"></i> Subasta
+                            </label>
+                            <select asp-for="InscripcionId" class="form-select" asp-items="ViewBag.InscripcionId">
+                                <option value="">Seleccione una subasta</option>
+                            </select>
+                            <span asp-validation-for="InscripcionId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Monto" class="form-label">
+                                <i class="fas fa-dollar-sign"></i> Monto de la Puja
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input asp-for="Monto" class="form-control" type="number" step="0.01" min="0" />
+                            </div>
+                            <span asp-validation-for="Monto" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="FechaPuja" class="form-label">
+                                <i class="far fa-calendar-alt"></i> Fecha y Hora
+                            </label>
+                            <input asp-for="FechaPuja" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="FechaPuja" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Guardar Cambios
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> Volver al Listado
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .card-header {
+        background-color: #e7d6b4;
+        color: #6b4e3a;
+        padding: 1rem;
+    }
+
+    .form-label {
+        color: #6b4e3a;
+        font-weight: 500;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #d5c7a0;
+        box-shadow: 0 0 0 0.25rem rgba(213, 199, 160, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #d5c7a0;
+        border-color: #b8a98e;
+        color: #6b4e3a;
+    }
+
+        .btn-primary:hover {
+            background-color: #b8a98e;
+            border-color: #a69070;
+            color: #3b2a1c;
+        }
+
+    .btn-outline-secondary {
+        color: #6b4e3a;
+        border-color: #d5c7a0;
+    }
+
+        .btn-outline-secondary:hover {
+            background-color: #f5f5dc;
+            color: #3b2a1c;
+            border-color: #b8a98e;
+        }
+
+    .input-group-text {
+        background-color: #e7d6b4;
+        color: #6b4e3a;
+        border-color: #d5c7a0;
+    }
+
+    .alert {
+        border-radius: 8px;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            // Inicializar Select2 para mejorar la experiencia de selección
+            $('.form-select').select2({
+                theme: 'bootstrap-5',
+                width: '100%'
+            });
+
+            // Validación del formulario
+            $('form').submit(function (e) {
+                if (!$(this).valid()) {
+                    e.preventDefault();
+                    return false;
+                }
+                return true;
+            });
+        });
+    </script>
+}

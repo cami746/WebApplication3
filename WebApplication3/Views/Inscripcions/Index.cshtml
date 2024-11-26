@@ -1,0 +1,108 @@
+﻿@model IEnumerable<WebApplication3.Controllers.InscripcionsController.InscripcionViewModel>
+@{
+    ViewData["Title"] = "Inscripciones a Subastas";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0"><i class="fas fa-gavel me-2"></i>Registro de Inscripciones a Subastas</h2>
+                <a asp-action="Create" class="btn btn-success">
+                    <i class="fas fa-plus me-2"></i>Nueva Inscripción
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover border">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>
+                                <i class="far fa-calendar-alt me-2"></i>Fecha de Inscripción
+                            </th>
+                            <th>
+                                <i class="fas fa-gavel me-2"></i>Subasta
+                            </th>
+                            <th>
+                                <i class="fas fa-user me-2"></i>Participante
+                            </th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="badge bg-info text-dark">
+                                        @item.FechaInscripcion.ToString("dd/MM/yyyy HH:mm")
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>@item.TituloSubasta</strong>
+                                </td>
+                                <td>
+                                    <span class="text-primary">@item.NombreUsuario</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Edit" asp-route-id="@item.InscripcionId"
+                                           class="btn btn-warning btn-sm" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.InscripcionId"
+                                           class="btn btn-info btn-sm" title="Detalles">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.InscripcionId"
+                                           class="btn btn-danger btn-sm" title="Eliminar">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .table th {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            box-shadow: 0 0.5rem 1rem #6b4e3a;
+        }
+
+        .btn-group .btn {
+            margin: 0 2px;
+        }
+
+        .badge {
+            font-size: 0.9em;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Inicializar tooltips para los botones de acción
+            $('[title]').tooltip();
+
+            // Animación suave al mostrar la tabla
+            $('.table').hide().fadeIn(500);
+        });
+    </script>
+}

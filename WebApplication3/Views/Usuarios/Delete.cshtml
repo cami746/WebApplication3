@@ -1,0 +1,92 @@
+﻿<!-- Delete.cshtml -->
+@model WebApplication3.Models.Usuario
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+}
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-user-times"></i> Eliminar Usuario</h1>
+        <h3 class="text-danger mt-3">¿Está seguro que desea eliminar este usuario?</h3>
+    </div>
+
+    <div class="auction-card">
+        <dl class="row">
+            <dt class="col-sm-3"><i class="fas fa-user"></i> @Html.DisplayNameFor(model => model.Nombre)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+            <dt class="col-sm-3"><i class="fas fa-user"></i> @Html.DisplayNameFor(model => model.Apellido)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Apellido)</dd>
+
+            <dt class="col-sm-3"><i class="fas fa-envelope"></i> @Html.DisplayNameFor(model => model.Email)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+            <dt class="col-sm-3"><i class="fas fa-calendar"></i> @Html.DisplayNameFor(model => model.FechaCreacion)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaCreacion)</dd>
+
+            <dt class="col-sm-3"><i class="fas fa-clock"></i> @Html.DisplayNameFor(model => model.UltimoAcceso)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.UltimoAcceso)</dd>
+        </dl>
+
+        <form asp-action="Delete" class="text-center mt-4">
+            <input type="hidden" asp-for="IdUsuario" />
+            <div class="btn-group-auction justify-content-center">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Confirmar Eliminación
+                </button>
+                <a asp-action="Index" class="btn btn-auction">
+                    <i class="fas fa-arrow-left"></i> Volver al Listado
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+        padding: 0.5rem 1.2rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+            transform: translateY(-2px);
+        }
+
+    .auction-card {
+        background-color: var(--beige-light);
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .text-danger {
+        color: #dc3545 !important;
+    }
+
+    dt {
+        color: var(--brown-accent);
+        font-weight: bold;
+    }
+
+    dd {
+        margin-bottom: 1rem;
+    }
+
+    .btn-group-auction {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .auction-header h3 {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+        font-weight: normal;
+    }
+</style>

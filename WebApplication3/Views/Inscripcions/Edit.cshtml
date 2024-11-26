@@ -1,0 +1,52 @@
+﻿@* Edit.cshtml *@
+@model WebApplication3.Models.Inscripcion
+@{
+    ViewData["Title"] = "Editar Inscripción";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h3 class="mb-0"><i class="fas fa-edit me-2"></i>Editar Inscripción</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <input type="hidden" asp-for="InscripcionId" />
+
+                <div class="mb-3">
+                    <label asp-for="UsuarioId" class="form-label">
+                        <i class="fas fa-user me-2"></i>Participante
+                    </label>
+                    <select asp-for="UsuarioId" class="form-select" asp-items="ViewBag.UsuarioId"></select>
+                    <span asp-validation-for="UsuarioId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="SubastaId" class="form-label">
+                        <i class="fas fa-gavel me-2"></i>Subasta
+                    </label>
+                    <select asp-for="SubastaId" class="form-select" asp-items="ViewBag.SubastaId"></select>
+                    <span asp-validation-for="SubastaId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="FechaInscripcion" class="form-label">
+                        <i class="far fa-calendar-alt me-2"></i>Fecha de Inscripción
+                    </label>
+                    <input asp-for="FechaInscripcion" class="form-control" readonly />
+                    <span asp-validation-for="FechaInscripcion" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Volver
+                    </a>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-save me-2"></i>Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

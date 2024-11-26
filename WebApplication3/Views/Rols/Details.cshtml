@@ -1,0 +1,38 @@
+﻿<!-- Details.cshtml -->
+@model WebApplication3.Models.Rol
+@{
+    ViewData["Title"] = "Detalles del Rol";
+}
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-info-circle"></i> Detalles del Rol</h1>
+    </div>
+
+    <div class="auction-card">
+        <dl class="row">
+            <dt class="col-sm-3">
+                <i class="fas fa-tag"></i> @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+
+            <dt class="col-sm-3">
+                <i class="fas fa-info-circle"></i> @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+        </dl>
+
+        <div class="text-center mt-4">
+            <a asp-action="Edit" asp-route-id="@Model?.IdRol" class="btn btn-auction me-2">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+</div>

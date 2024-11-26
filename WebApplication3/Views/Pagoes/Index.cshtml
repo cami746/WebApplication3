@@ -1,0 +1,107 @@
+﻿@* Index.cshtml *@
+@model IEnumerable<WebApplication3.Models.Pago>
+@{
+    ViewData["Title"] = "Registro de Pagos - Subastas";
+}
+
+<style>
+    body {
+        background-color: #f5f5dc;
+        color: #8b4513;
+    }
+
+    .auction-table {
+        background-color: #fff8dc;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(139, 69, 19, 0.1);
+    }
+
+    .auction-header {
+        background-color: #deb887;
+        color: #8b4513;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .btn-auction {
+        background-color: #d2691e;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+        .btn-auction:hover {
+            background-color: #8b4513;
+            color: white;
+        }
+
+    .action-links a {
+        color: #d2691e;
+        text-decoration: none;
+        margin: 0 5px;
+    }
+
+        .action-links a:hover {
+            color: #8b4513;
+            text-decoration: underline;
+        }
+</style>
+
+<div class="auction-header">
+    <h1><i class="fas fa-gavel"></i> Registro de Pagos de Subastas</h1>
+    <p class="lead">Sistema de gestión de pagos para inscripciones en subastas</p>
+</div>
+
+<p>
+    <a asp-action="Create" class="btn btn-auction"><i class="fas fa-plus"></i> Registrar Nuevo Pago</a>
+</p>
+
+<div class="auction-table p-4">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    <i class="fas fa-dollar-sign"></i> @Html.DisplayNameFor(model => model.Monto)
+                </th>
+                <th>
+                    <i class="far fa-calendar-alt"></i> @Html.DisplayNameFor(model => model.FechaPago)
+                </th>
+                <th>
+                    <i class="fas fa-user"></i> Participante
+                </th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Monto)
+                    </td>
+                    <td>
+                        @item.FechaPago.ToString("dd/MM/yyyy HH:mm")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Inscripcion.Usuario.Nombre)
+                        @Html.DisplayFor(modelItem => item.Inscripcion.Usuario.Apellido)
+                    </td>
+                    <td class="action-links">
+                        <a asp-action="Edit" asp-route-id="@item.PagoId" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a> |
+                        <a asp-action="Details" asp-route-id="@item.PagoId" title="Detalles">
+                            <i class="fas fa-info-circle"></i>
+                        </a> |
+                        <a asp-action="Delete" asp-route-id="@item.PagoId" title="Eliminar">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

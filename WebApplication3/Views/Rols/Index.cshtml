@@ -1,0 +1,163 @@
+﻿<!-- Index.cshtml -->
+@model IEnumerable<WebApplication3.Models.Rol>
+@{
+    ViewData["Title"] = "Roles del Sistema";
+}
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-user-tag"></i> Roles del Sistema</h1>
+        <a asp-action="Create" class="btn btn-auction mt-3">
+            <i class="fas fa-plus"></i> Nuevo Rol
+        </a>
+    </div>
+
+    <div class="auction-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-tag"></i> @Html.DisplayNameFor(model => model.Nombre)</th>
+                    <th><i class="fas fa-info-circle"></i> @Html.DisplayNameFor(model => model.Descripcion)</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                        <td>
+                            <div class="btn-group-auction justify-content-center">
+                                <a asp-action="Edit" asp-route-id="@item.IdRol"
+                                   class="btn btn-auction btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.IdRol"
+                                   class="btn btn-auction btn-sm">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.IdRol"
+                                   class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Estilos compartidos -->
+<style>
+    :root {
+        --beige-light: #f5f5dc;
+        --beige-medium: #e8e4d9;
+        --beige-dark: #d4cdb4;
+        --brown-accent: #8b7355;
+        --brown-light: #a68b6c;
+        --text-color: #463e3f;
+    }
+
+    .auction-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    .auction-header {
+        text-align: center;
+        border-bottom: 2px solid var(--beige-dark);
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+        .auction-header h1 {
+            color: var(--brown-accent);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+    .auction-form {
+        background-color: var(--beige-light);
+        padding: 2rem;
+        border-radius: 8px;
+    }
+
+    .btn-auction {
+        background-color: var(--brown-accent);
+        color: white;
+        padding: 0.5rem 1.2rem;
+        border: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-auction:hover {
+            background-color: var(--brown-light);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+    .form-control {
+        border: 1px solid var(--beige-dark);
+        padding: 0.75rem;
+    }
+
+        .form-control:focus {
+            border-color: var(--brown-accent);
+            box-shadow: 0 0 0 0.2rem rgba(139, 115, 85, 0.25);
+        }
+
+    .auction-table {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .auction-table th {
+            background-color: var(--brown-accent);
+            color: white;
+            padding: 1rem;
+        }
+
+        .auction-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--beige-medium);
+        }
+
+        .auction-table tr:hover {
+            background-color: var(--beige-light);
+        }
+
+    .auction-card {
+        background-color: var(--beige-light);
+        padding: 2rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+    }
+
+    dt {
+        color: var(--brown-accent);
+        font-weight: bold;
+    }
+
+    .btn-group-auction {
+        display: flex;
+        gap: 0.5rem;
+    }
+</style>

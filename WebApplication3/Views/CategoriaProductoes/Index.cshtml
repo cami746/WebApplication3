@@ -1,0 +1,131 @@
+﻿@model IEnumerable<WebApplication3.Models.CategoriaProducto>
+@{
+    ViewData["Title"] = "Categorías de Productos";
+}
+
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="fas fa-boxes"></i> Categorías</h1>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nueva Categoría
+        </a>
+    </div>
+
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["Mensaje"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-img-top-container">
+                        @if (!string.IsNullOrEmpty(item.ImagenUrl))
+                        {
+                            <img src="@item.ImagenUrl" class="card-img-top" alt="@item.Nombre">
+                        }
+                        else
+                        {
+                            <img src="~/images/no-image.png" class="card-img-top" alt="Sin imagen">
+                        }
+                        <div class="category-overlay">
+                            <h3>@item.Nombre</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@(!string.IsNullOrEmpty(item.Descripcion) ? item.Descripcion : "Sin descripción")</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <div class="btn-group w-100">
+                            <a asp-action="Edit" asp-route-id="@item.CategoriaProductoId"
+                               class="btn btn-outline-primary" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.CategoriaProductoId"
+                               class="btn btn-outline-info" title="Detalles">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.CategoriaProductoId"
+                               class="btn btn-outline-danger" title="Eliminar">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+    .card-img-top-container {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .category-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        color: white;
+    }
+
+        .category-overlay h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+    .btn-group {
+        gap: 5px;
+    }
+
+    .card-text {
+        color: #6b4e3a;
+    }
+
+    .alert {
+        border-radius: 8px;
+    }
+
+    .btn-primary {
+        background-color: #d5c7a0;
+        border-color: #b8a98e;
+        color: #6b4e3a;
+    }
+
+        .btn-primary:hover {
+            background-color: #b8a98e;
+            border-color: #a69070;
+            color: #3b2a1c;
+        }
+</style>

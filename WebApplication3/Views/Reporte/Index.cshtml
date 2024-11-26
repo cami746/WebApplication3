@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Reportes";
+}
+
+<div class="container mt-4">
+    <h2>Reportes del Sistema</h2>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reporte de Subastas</h5>
+                    <p class="card-text">Generar un reporte detallado de todas las subastas, incluyendo fechas, precios y estadísticas de pujas.</p>
+                    <a asp-action="DescargarReporteSubastas" class="btn btn-primary">
+                        <i class="fas fa-download"></i> Descargar PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reporte de Usuarios</h5>
+                    <p class="card-text">Generar un reporte con información de usuarios, participación en subastas y estadísticas de pujas.</p>
+                    <a asp-action="DescargarReporteUsuarios" class="btn btn-primary">
+                        <i class="fas fa-download"></i> Descargar PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

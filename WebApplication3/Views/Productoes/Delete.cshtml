@@ -1,0 +1,156 @@
+﻿<!-- Delete.cshtml -->
+@model WebApplication3.Models.Producto
+@{
+    ViewData["Title"] = "Eliminar Producto";
+}
+
+<style>
+    :root {
+        --beige-light: #f5f5dc;
+        --beige-medium: #e8e4d9;
+        --beige-dark: #d4cdb4;
+        --brown-accent: #8b7355;
+        --brown-light: #a68b6c;
+        --text-color: #463e3f;
+    }
+
+    .auction-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    .auction-header {
+        text-align: center;
+        border-bottom: 2px solid var(--beige-dark);
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+        .auction-header h1 {
+            color: var(--brown-accent);
+        }
+
+    .delete-warning {
+        background-color: #fff3f3;
+        border-left: 4px solid #dc3545;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        border-radius: 4px;
+    }
+
+    .product-details {
+        background-color: var(--beige-light);
+        padding: 2rem;
+        border-radius: 8px;
+    }
+
+    .main-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .details-row {
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        background-color: white;
+        border-radius: 6px;
+    }
+
+    .details-label {
+        color: var(--brown-accent);
+        font-weight: bold;
+    }
+
+    .btn-delete {
+        background-color: #dc3545;
+        color: white;
+        padding: 0.5rem 1.2rem;
+        border: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-trash-alt"></i> Eliminar Producto</h1>
+    </div>
+
+    <div class="delete-warning">
+        <h3 class="text-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            ¿Está seguro de que desea eliminar este producto?
+        </h3>
+        <p>Esta acción no se puede deshacer y eliminará todas las imágenes asociadas.</p>
+    </div>
+
+    <div class="product-details">
+        <div class="row">
+            <div class="col-md-6">
+                @if (!string.IsNullOrEmpty(Model.ImagenPrincipalUrl))
+                {
+                    <img src="@Url.Content(Model.ImagenPrincipalUrl)" class="main-image" alt="@Model.Nombre" />
+                }
+            </div>
+
+            <div class="col-md-6">
+                <div class="details-row">
+                    <span class="details-label">
+                        <i class="fas fa-tag"></i> Nombre:
+                    </span>
+                    <span class="details-value">@Model.Nombre</span>
+                </div>
+
+                <div class="details-row">
+                    <span class="details-label">
+                        <i class="fas fa-align-left"></i> Descripción:
+                    </span>
+                    <span class="details-value">@Model.Descripcion</span>
+                </div>
+
+                <div class="details-row">
+                    <span class="details-label">
+                        <i class="fas fa-dollar-sign"></i> Precio:
+                    </span>
+                    <span class="details-value">$@Model.Precio.ToString("N2")</span>
+                </div>
+
+                <div class="details-row">
+                    <span class="details-label">
+                        <i class="fas fa-folder"></i> Categoría:
+                    </span>
+                    <span class="details-value">@Model.CategoriaProducto.Nombre</span>
+                </div>
+
+                <div class="details-row">
+                    <span class="details-label">
+                        <i class="fas fa-gavel"></i> Subasta:
+                    </span>
+                    <span class="details-value">@Model.Subasta.Titulo</span>
+                </div>
+
+                <form asp-action="Delete" class="mt-4">
+                    <input type="hidden" asp-for="ProductoId" />
+                    <button type="submit" class="btn btn-delete me-2">
+                        <i class="fas fa-trash"></i> Confirmar Eliminación
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Cancelar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

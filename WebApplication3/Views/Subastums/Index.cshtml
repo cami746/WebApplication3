@@ -1,0 +1,183 @@
+﻿@model IEnumerable<WebApplication3.Models.Subastum>
+@{
+    ViewData["Title"] = "Subastas Activas";
+}
+
+<style>
+    :root {
+        --primary-beige: #f5e6d3;
+        --secondary-beige: #e6d5c3;
+        --dark-beige: #d4c4b7;
+        --text-brown: #8b7355;
+        --accent-brown: #6d4c41;
+    }
+
+    body {
+        background-color: #faf6f1;
+    }
+
+    .auction-header {
+        background-color: var(--primary-beige);
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .auction-title {
+        color: var(--accent-brown);
+        font-family: 'Georgia', serif;
+        margin-bottom: 1rem;
+    }
+
+    .btn-auction {
+        background-color: var(--accent-brown);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .btn-auction:hover {
+            background-color: var(--text-brown);
+            color: white;
+        }
+
+    .table {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+        .table thead {
+            background-color: var(--secondary-beige);
+            color: var(--accent-brown);
+        }
+
+        .table th {
+            padding: 1rem;
+            font-family: 'Georgia', serif;
+        }
+
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--primary-beige);
+        }
+
+    .action-links a {
+        color: var(--accent-brown);
+        margin: 0 0.5rem;
+        text-decoration: none;
+    }
+
+        .action-links a:hover {
+            color: var(--text-brown);
+            text-decoration: underline;
+        }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .control-label {
+        color: var(--text-brown);
+        font-weight: 500;
+    }
+
+    .form-control {
+        border: 1px solid var(--dark-beige);
+        border-radius: 4px;
+        padding: 0.5rem;
+    }
+
+        .form-control:focus {
+            border-color: var(--accent-brown);
+            box-shadow: 0 0 0 0.2rem rgba(139, 115, 85, 0.25);
+        }
+
+    .details-container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .detail-label {
+        color: var(--accent-brown);
+        font-weight: 600;
+    }
+
+    .status-active {
+        color: #2e7d32;
+        font-weight: 600;
+    }
+
+    .status-inactive {
+        color: #c62828;
+        font-weight: 600;
+    }
+</style>
+
+<!-- Index View -->
+<div class="auction-header">
+    <h1 class="auction-title">
+        <i class="fas fa-gavel"></i> Subastas Disponibles
+    </h1>
+    <a asp-action="Create" class="btn-auction">
+        <i class="fas fa-plus"></i> Nueva Subasta
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+                <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                <th>@Html.DisplayNameFor(model => model.PrecioInicial)</th>
+                <th>@Html.DisplayNameFor(model => model.PrecioFinal)</th>
+                <th>@Html.DisplayNameFor(model => model.FechaInicio)</th>
+                <th>@Html.DisplayNameFor(model => model.FechaFin)</th>
+                <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                <th>@Html.DisplayNameFor(model => model.TipoDeSubasta)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.PrecioInicial)</td>
+                    <td>$@Html.DisplayFor(modelItem => item.PrecioFinal)</td>
+                    <td>@item.FechaInicio.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@item.FechaFin.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        <span class="@(item.Estado == "Activa" ? "status-active" : "status-inactive")">
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </span>
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.TipoDeSubasta.Nombre)</td>
+                    <td class="action-links">
+                        <a asp-action="Edit" asp-route-id="@item.SubastaId" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.SubastaId" title="Detalles">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.SubastaId" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

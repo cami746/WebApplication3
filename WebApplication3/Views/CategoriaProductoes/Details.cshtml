@@ -1,0 +1,43 @@
+﻿<!-- Details.cshtml -->
+@model WebApplication3.Models.CategoriaProducto
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="auction-container">
+    <div class="auction-header">
+        <h1>Detalles de la Categoría</h1>
+    </div>
+    <div class="auction-content">
+        <div class="auction-details">
+            <div class="row mb-4">
+                @if (!string.IsNullOrEmpty(Model?.ImagenUrl))
+                {
+                    <div class="text-center">
+                        <img src="@Model.ImagenUrl" class="img-fluid rounded" style="max-height: 300px" alt="@Model.Nombre" />
+                    </div>
+                }
+            </div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model!.Nombre)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model!.Nombre)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model!.Descripcion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model!.Descripcion)
+                </dd>
+            </dl>
+        </div>
+        <div class="text-center mt-4">
+            @if (Model != null)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.CategoriaProductoId" class="btn btn-auction me-2">Editar</a>
+            }
+            <a asp-action="Index" class="auction-link">Volver al Listado</a>
+        </div>
+    </div>
+</div>

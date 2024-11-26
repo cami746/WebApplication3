@@ -1,0 +1,279 @@
+﻿@model WebApplication3.Models.Usuario
+@{
+    ViewData["Title"] = "Registro de Usuario";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Subastas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        :root {
+            --beige-light: #f5f5dc;
+            --beige-medium: #e8e4d9;
+            --beige-dark: #d4cdb4;
+            --brown-accent: #8b7355;
+            --brown-light: #a68b6c;
+            --text-color: #463e3f;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--beige-light), var(--beige-medium));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            font-family: 'Georgia', serif;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .register-header h2 {
+            color: var(--brown-accent);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .register-header p {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .gavel-icon {
+            font-size: 3rem;
+            color: var(--brown-accent);
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid var(--beige-dark);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background-color: var(--beige-light);
+        }
+
+        .form-control:focus {
+            border-color: var(--brown-accent);
+            box-shadow: 0 0 0 0.2rem rgba(139, 115, 85, 0.25);
+            background-color: white;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--brown-accent);
+        }
+
+        .btn-register {
+            background-color: var(--brown-accent);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            margin-top: 1rem;
+        }
+
+        .btn-register:hover {
+            background-color: var(--brown-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 115, 85, 0.3);
+            color: white;
+        }
+
+        .error-message {
+            background-color: #fff3f3;
+            border-left: 4px solid #dc3545;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            color: #dc3545;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--beige-dark);
+        }
+
+        .login-link a {
+            color: var(--brown-accent);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: var(--brown-light);
+            text-decoration: underline;
+        }
+
+        /* Decoraciones */
+        .corner-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--beige-medium);
+            opacity: 0.2;
+            border-radius: 50%;
+        }
+
+        .top-right {
+            top: -75px;
+            right: -75px;
+        }
+
+        .bottom-left {
+            bottom: -75px;
+            left: -75px;
+        }
+
+    }
+
+    /* Aplicar la animación */
+    .register-container {
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+
+        .register-container {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .form-row {
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        .form-row > div {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        select.form-control {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238b7355' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: calc(100% - 1rem) center;
+            padding-right: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="corner-decoration top-right"></div>
+        <div class="corner-decoration bottom-left"></div>
+
+        <div class="register-header">
+            <i class="fas fa-gavel gavel-icon"></i>
+            <h2>Regístrate</h2>
+            <p>Únete a nuestra comunidad de subastas</p>
+        </div>
+
+        <form asp-action="RegistrarUsuario" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input asp-for="Nombre" class="form-control" placeholder="Nombre" required />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input asp-for="Apellido" class="form-control" placeholder="Apellido" required />
+                        <span asp-validation-for="Apellido" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-envelope input-icon"></i>
+                <input asp-for="Email" class="form-control" type="email" placeholder="Correo Electrónico" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-lock input-icon"></i>
+                <input asp-for="Contrasena" class="form-control" type="password" placeholder="Contraseña" required />
+                <span asp-validation-for="Contrasena" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-user-tag input-icon"></i>
+                <select name="rolId" id="rolId" class="form-control" required>
+                    <option value="">Seleccione un rol</option>
+                    @foreach (var rol in ViewBag.Roles)
+                    {
+                        <option value="@rol.IdRol">@rol.Nombre</option>
+                    }
+                </select>
+            </div>
+
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+
+            <button type="submit" class="btn btn-register">
+                <i class="fas fa-user-plus mr-2"></i>
+                Completar Registro
+            </button>
+
+            <div class="login-link">
+                <p>¿Ya tienes una cuenta? 
+                    <a asp-controller="Login" asp-action="Index">
+                        <i class="fas fa-sign-in-alt"></i> Inicia sesión aquí
+                    </a>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿@model WebApplication3.Models.SubcategoriaProducto
+@{
+    ViewData["Title"] = "Detalles de Subcategoría";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center mb-0">
+                        <i class="fas fa-info-circle"></i> Detalles de Subcategoría
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="image-container mb-3">
+                                @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                                {
+                                    <img src="@Url.Content(Model.ImagenUrl)" class="img-fluid rounded" alt="@Model.Nombre">
+                                }
+                                else
+                                {
+                                    <img src="~/images/no-image.png" class="img-fluid rounded" alt="Sin imagen">
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="info-group">
+                                <label><i class="fas fa-tag"></i> Nombre:</label>
+                                <h4>@Model.Nombre</h4>
+                            </div>
+
+                            <div class="info-group">
+                                <label><i class="fas fa-folder"></i> Categoría:</label>
+                                <h5>@Model.CategoriaProducto.Nombre</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@Model.SubcategoriaProductoId"
+                               class="btn btn-primary">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> Volver a la lista
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .card-header {
+        background-color: #e7d6b4;
+        color: #6b4e3a;
+        padding: 1rem;
+    }
+
+    .image-container {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .info-group {
+        margin-bottom: 1.5rem;
+    }
+
+        .info-group label {
+            color: #6b4e3a;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-group h4, .info-group h5 {
+            color: #333;
+            margin: 0;
+        }
+
+    .btn-primary {
+        background-color: #d5c7a0;
+        border-color: #b8a98e;
+        color: #6b4e3a;
+    }
+
+        .btn-primary:hover {
+            background-color: #b8a98e;
+            border-color: #a69070;
+            color: #3b2a1c;
+        }
+
+    .btn-group {
+        width: 100%;
+        gap: 10px;
+    }
+</style>

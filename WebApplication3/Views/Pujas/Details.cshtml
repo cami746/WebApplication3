@@ -1,0 +1,95 @@
+﻿@model WebApplication3.Models.Puja
+@{
+    ViewData["Title"] = "Detalles de la Puja";
+}
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .card-header {
+        background-color: #e7d6b4;
+        color: #6b4e3a;
+        padding: 1rem;
+    }
+
+    .info-group {
+        margin-bottom: 1.5rem;
+    }
+
+        .info-group label {
+            color: #6b4e3a;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-group p {
+            color: #6b4e3a;
+            margin-bottom: 0;
+        }
+
+    .btn-primary {
+        background-color: #d5c7a0;
+        border-color: #b8a98e;
+        color: #6b4e3a;
+    }
+
+        .btn-primary:hover {
+            background-color: #b8a98e;
+            border-color: #a69070;
+            color: #3b2a1c;
+        }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title text-center mb-0">
+                        <i class="fas fa-gavel"></i> Detalles de la Puja
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-group">
+                                <label><i class="fas fa-dollar-sign"></i> Monto</label>
+                                <h4 class="text-primary">@Model.Monto.ToString("C")</h4>
+                            </div>
+
+                            <div class="info-group">
+                                <label><i class="far fa-clock"></i> Fecha y Hora</label>
+                                <p>@Model.FechaPuja.ToString("dd/MM/yyyy HH:mm:ss")</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="info-group">
+                                <label><i class="fas fa-user"></i> Usuario</label>
+                                <p>@Model.Inscripcion.Usuario.Nombre @Model.Inscripcion.Usuario.Apellido</p>
+                            </div>
+
+                            <div class="info-group">
+                                <label><i class="fas fa-box"></i> Subasta</label>
+                                <p>@Model.Inscripcion.Subasta.Titulo</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a asp-action="Edit" asp-route-id="@Model.PujaId" class="btn btn-primary">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> Volver al Listado
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

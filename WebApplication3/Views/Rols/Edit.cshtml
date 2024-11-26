@@ -1,0 +1,47 @@
+﻿<!-- Edit.cshtml -->
+@model WebApplication3.Models.Rol
+@{
+    ViewData["Title"] = "Editar Rol";
+}
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-edit"></i> Editar Rol</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="auction-form">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <input type="hidden" asp-for="IdRol" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Nombre" class="form-label">
+                            <i class="fas fa-tag"></i> Nombre del Rol
+                        </label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Descripcion" class="form-label">
+                            <i class="fas fa-info-circle"></i> Descripción
+                        </label>
+                        <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-auction me-2">
+                            <i class="fas fa-save"></i> Guardar
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> Volver
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

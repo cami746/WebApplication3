@@ -1,0 +1,156 @@
+﻿@model IEnumerable<WebApplication3.Models.TipoDeSubastum>
+@{
+    ViewData["Title"] = "Tipos de Subasta";
+}
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-gavel"></i> Tipos de Subasta</h1>
+        <a asp-action="Create" class="btn btn-auction mt-3">
+            <i class="fas fa-plus"></i> Nuevo Tipo de Subasta
+        </a>
+    </div>
+
+    <div class="auction-table">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                        <td class="text-center">
+                            <div class="btn-group-auction">
+                                <a asp-action="Edit" asp-route-id="@item.TipoDeSubastaId"
+                                   class="btn btn-auction btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.TipoDeSubastaId"
+                                   class="btn btn-auction btn-sm">
+                                    <i class="fas fa-info-circle"></i> Detalles
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.TipoDeSubastaId"
+                                   class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Estilos compartidos para todas las vistas -->
+<style>
+    :root {
+        --beige-light: #f5f5dc;
+        --beige-medium: #e8e4d9;
+        --beige-dark: #d4cdb4;
+        --brown-accent: #8b7355;
+        --text-color: #463e3f;
+    }
+
+    body {
+        background-color: var(--beige-light);
+        color: var(--text-color);
+    }
+
+    .auction-container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    .auction-header {
+        text-align: center;
+        border-bottom: 2px solid var(--beige-dark);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        color: var(--brown-accent);
+    }
+
+    .auction-form {
+        background-color: var(--beige-light);
+        padding: 2rem;
+        border-radius: 8px;
+    }
+
+    .auction-table {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .auction-table th {
+            background-color: var(--brown-accent);
+            color: white;
+            padding: 1rem;
+            border: none;
+        }
+
+        .auction-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--beige-medium);
+            vertical-align: middle;
+        }
+
+        .auction-table tr:hover {
+            background-color: var(--beige-light);
+        }
+
+    .btn-auction {
+        background-color: var(--brown-accent);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-auction:hover {
+            background-color: #6d5842;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .form-control {
+        border: 1px solid var(--beige-dark);
+        padding: 0.75rem;
+    }
+
+        .form-control:focus {
+            border-color: var(--brown-accent);
+            box-shadow: 0 0 0 0.2rem rgba(139, 115, 85, 0.25);
+        }
+
+    .auction-link {
+        color: var(--brown-accent);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .auction-link:hover {
+            color: #6d5842;
+            text-decoration: underline;
+        }
+
+    .btn-group-auction {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .auction-title {
+        color: var(--brown-accent);
+        font-family: 'Georgia', serif;
+        margin-bottom: 1.5rem;
+    }
+</style>

@@ -1,0 +1,40 @@
+﻿<!-- Delete.cshtml -->
+@model WebApplication3.Models.Rol
+@{
+    ViewData["Title"] = "Eliminar Rol";
+}
+
+<div class="auction-container">
+    <div class="auction-header">
+        <h1><i class="fas fa-trash-alt"></i> Eliminar Rol</h1>
+        <h3 class="text-danger mt-3">¿Está seguro que desea eliminar este rol?</h3>
+    </div>
+
+    <div class="auction-card">
+        <dl class="row">
+            <dt class="col-sm-3">
+                <i class="fas fa-tag"></i> @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+
+            <dt class="col-sm-3">
+                <i class="fas fa-info-circle"></i> @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete" class="text-center mt-4">
+            <input type="hidden" asp-for="IdRol" />
+            <button type="submit" class="btn btn-danger me-2">
+                <i class="fas fa-trash"></i> Confirmar Eliminación
+            </button>
+            <a asp-action="Index" class="btn btn-auction">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </form>
+    </div>
+</div>
