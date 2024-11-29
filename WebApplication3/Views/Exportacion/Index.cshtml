@@ -1,0 +1,54 @@
+﻿```html
+@model IEnumerable<WebApplication3.Models.Producto>
+
+@{
+    ViewData["Title"] = "Lista de Productos";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Productos</h2>
+            <a asp-action="ExportarProductos" class="btn btn-success">
+                <i class="fas fa-file-excel me-2"></i>Exportar a Excel
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Subasta</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ProductoId</td>
+                                <td>@item.Nombre</td>
+                                <td>@item.Descripcion</td>
+                                <td>@item.Precio.ToString("C")</td>
+                                <td>@item.CategoriaProducto?.Nombre</td>
+                                <td>@item.Subasta?.Titulo</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImagenPrincipalUrl))
+                                    {
+                                        <img src="@Url.Content(item.ImagenPrincipalUrl)" style="max-height: 50px;" />
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+```
